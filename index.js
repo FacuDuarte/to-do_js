@@ -7,6 +7,8 @@ const dateYear = document.getElementById('dateYear')
 // Se selecciona el div que contendrá todas las tareas
 const taskContainer = document.getElementById('taskContainer')
 
+Sortable.create(taskContainer, {})
+
 //Función que genera la fecha actual y los muestra en los contenedores seleccionados anteriormente
 const setDate = () => {
     const date = new Date()
@@ -27,9 +29,22 @@ const addNewTask = event => {
     task.addEventListener('click', changeTaskState)
     task.textContent = value
     taskContainer.prepend(task)
-    event.target.reset()   
+    event.target.reset()
+    createBtn(task)   
 }
 
+//Función que cra el boton, dandóle el ícono, vincula la funcion deleteElement a ese boton y luego lo inserta en el contenedor de la tarea
+const createBtn = (element) => {
+    const btn = document.createElement('i')
+    btn.classList.add('bx', 'bxs-trash')
+    btn.addEventListener('click', deleteElement)
+    element.appendChild(btn)
+}
+
+//Función que selecciona el padre del elemento clikeado y lo elimina
+const deleteElement = (element) => {
+    element.target.parentElement.remove()
+}
 
 // Función dada a cada tarea que activa o desactiva la clase css done
 const changeTaskState = event => {
@@ -37,19 +52,24 @@ const changeTaskState = event => {
 }
 
 //Función que crea dos array. uno con las tareas hechas y otro con las tareas por hacer. Itera los hijos del contenedor con las tareas y en base a si contienen la clase done los agrupa en uno de los arrays creados, luego retorna una copia de esos arrays, primero el de tareas por hacer y luego el de hechas
-const order = () => {
+const order = (string) => {
     const done = []
     const toDo = []
     taskContainer.childNodes.forEach( el => {
         el.classList.contains('done') ? done.push(el) : toDo.push(el)
     })
-    return [...toDo, ...done]
+    if (string == "toDo"){
+        return [...toDo, ...done]
+    }
+    else if (string == "done"){
+        return [...done, ...toDo]
+    }
 }
 
 
 // Función que llama a la funcion order, itera el array devuelto y crea un hijo en el contenedor de tareas por cada item del array
-const renderOrderedTask = () => {
-    order().forEach( el => taskContainer.appendChild(el))
+const renderOrderedTask = (string) => {
+    order(string).forEach( el => taskContainer.appendChild(el))
 }
 
 
@@ -57,4 +77,4 @@ const renderOrderedTask = () => {
 setDate()
 
 
-// Funcionalidades extra, se puede eliminar definitivamente una tarea, se pueden order por completadas o por hacer y se pueden arrastrar tareas.
+// Funcionalidades extra, se puede eliminar definitivamente una tarea, se pueden ordenar por completadas o por hacer y se pueden arrastrar tareas.

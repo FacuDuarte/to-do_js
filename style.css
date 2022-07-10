@@ -88,7 +88,7 @@ input:focus {
 }
 
 .addTaskButton {
-    height: 35px;
+    height: 40px;
     border-radius: 50%;
     font-size: 18px;
     background-color: var(--disabled);
@@ -100,10 +100,12 @@ input:focus {
     margin-top: 15px;
     color: var(--light);
     cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    font-size: 18px;
 }
 
 .done {
     background-color: var(--disabled);
-    text-decoration: line-through;
     color: var(--dark);
 }

@@ -6,7 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lista de tareas</title>
     <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
+    <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
     <script src="index.js" defer></script>
 </head>
 <body>
@@ -24,7 +26,8 @@
         <form onsubmit="addNewTask(event)">
             <input type="text" name="taskText" autocomplete="off" placeholder="Nueva Tarea" class="roundBorder">
             <button type="submit" class="addTaskButton">+</button>
-            <button type="button" class="orderButton roundBorder" onclick="renderOrderedTask()">Ordenar</button>
+            <button type="button" class="orderButton roundBorder" onclick="renderOrderedTask('toDo')">Ordenar: done</button>
+            <button type="button" class="orderButton roundBorder" onclick="renderOrderedTask('done')">Ordenar: to-do</button>
         </form>
         <div id="taskContainer"></div>
     </div>
